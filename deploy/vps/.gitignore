@@ -1,0 +1,6 @@
+docker-compose.env
+admin-credentials.txt
+consume/*
+!consume/.gitkeep
+export/*
+!export/.gitkeep

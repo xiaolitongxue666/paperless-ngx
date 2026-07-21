@@ -1,0 +1,55 @@
+# Paperless-ngx — VPS（环回 127.0.0.1:8000；经 vps_nginx /paperless/ 仅 Tailscale）
+# 基于 docker/compose/docker-compose.sqlite.yml；不改业务源码。
+# 用法：
+#   cp docker-compose.env.example docker-compose.env   # 填 SECRET_KEY / admin
+#   docker compose up -d
+services:
+  broker:
+    image: docker.io/valkey/valkey:9-alpine
+    restart: unless-stopped
+    mem_limit: 64m
+    volumes:
+      - redisdata:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  webserver:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    restart: unless-stopped
+    depends_on:
+      - broker
+    # OCR/large PDF can spike; 1Gi caused browser uploads to die as 502
+    mem_limit: 1536m
+    ports:
+      - "127.0.0.1:8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - data:/usr/src/paperless/data
+      - media:/usr/src/paperless/media
+      - ./export:/usr/src/paperless/export
+      - ./consume:/usr/src/paperless/consume
+    env_file: docker-compose.env
+    environment:
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_DBENGINE: sqlite
+      # OCR lang apt (PAPERLESS_OCR_LANGUAGES) via host mihomo mixed port
+      HTTP_PROXY: http://host.docker.internal:17890
+      HTTPS_PROXY: http://host.docker.internal:17890
+      http_proxy: http://host.docker.internal:17890
+      https_proxy: http://host.docker.internal:17890
+      NO_PROXY: localhost,127.0.0.1,broker,::1
+      no_proxy: localhost,127.0.0.1,broker,::1
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  data:
+  media:
+  redisdata:
