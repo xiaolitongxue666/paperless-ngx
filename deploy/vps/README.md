@@ -1,6 +1,6 @@
 # Paperless-ngx — VPS 部署
 
-独立 Docker 栈：仅监听 `127.0.0.1:8000`，由 [vps_nginx](https://github.com/xiaolitongxue666/vps_nginx) 反代 **`/paperless/`**。
+独立 Docker 栈：仅监听 `127.0.0.1:8000`，由 [vps_nginx](https://github.com/xiaolitongxue666/vps_nginx) 反代 **`/paperless/`**。镜像钉 `ghcr.io/paperless-ngx/paperless-ngx:3.1.3`（含 3.1.2 安全修复）。
 
 公网：将 `paperless` 加入 `VPS_NGINX_PUBLIC_EXPOSE`，访问  
 `https://xiaolitongxue.com.cn/paperless/`（与 `/blog/`、`/freshrss/` 同模式，非独立子域名）。
@@ -9,15 +9,16 @@
 
 | 环境 | 路径 |
 |------|------|
+| 本机 | `Code/VPS/paperless-ngx` |
 | VPS | `/home/ubuntu/Code/VPS/paperless-ngx` |
 | Compose | `deploy/vps/` |
-| 凭证（VPS 本地，勿提交） | `deploy/vps/admin-credentials.txt` / `docker-compose.env` |
+| 凭证（勿提交） | `deploy/vps/admin-credentials.txt` / `docker-compose.env` |
 
 ## 启动
 
 ```bash
-cd /home/ubuntu/Code/VPS/paperless-ngx/deploy/vps
-cp docker-compose.env.example docker-compose.env
+cd deploy/vps   # 本机 Code/VPS/paperless-ngx；VPS 历史树同上
+cp docker-compose.env.example docker-compose.env   # 已 gitignore
 # PAPERLESS_URL=https://xiaolitongxue.com.cn  （origin only，无 path）
 # PAPERLESS_FORCE_SCRIPT_NAME=/paperless
 docker compose pull && docker compose up -d
