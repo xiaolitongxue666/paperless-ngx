@@ -26,7 +26,7 @@ docker compose pull && docker compose up -d
 
 vps_nginx：`PUBLIC_EXPOSE` 含 `paperless` 后 `sudo -E ./scripts/deploy.sh`。
 
-## 快速阅读（v2.20 镜像）
+## 快速阅读（3.1.3 镜像）
 
 ```bash
 PAPERLESS_OCR_MODE=skip
@@ -38,6 +38,8 @@ PAPERLESS_OCR_OUTPUT_TYPE=pdf
 
 ## 约束
 
+- 镜像钉 `ghcr.io/paperless-ngx/paperless-ngx:3.1.3`。OCR 出站走 **17890**。
+- overlay 只留在 `deploy/vps/`。上游：`https://github.com/paperless-ngx/paperless-ngx`。
 - 勿并入 RSS 栈；公网暴露须强密码（个人文档）。
 - 探测：`curl --noproxy '*'`。
-- 与 Kavita：本栈归档/搜索；阅读进度与 EPUB 双语见 `/home/ubuntu/Code/VPS/kavita/deploy/vps`。
+- 与 Kavita：本栈归档/搜索；阅读进度与 EPUB 双语见 `/home/ubuntu/Code/VPS/kavita/deploy/vps`。勿把 `originals/` 当 Kavita library。
