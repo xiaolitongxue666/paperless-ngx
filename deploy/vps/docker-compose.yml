@@ -1,4 +1,4 @@
-# Paperless-ngx — VPS（环回 127.0.0.1:8000；经 vps_nginx /paperless/ 仅 Tailscale）
+# Paperless-ngx — VPS（环回 127.0.0.1:8000；经 vps_nginx /paperless/，可进 PUBLIC_EXPOSE）
 # 基于 docker/compose/docker-compose.sqlite.yml；不改业务源码。
 # 用法：
 #   cp docker-compose.env.example docker-compose.env   # 填 SECRET_KEY / admin

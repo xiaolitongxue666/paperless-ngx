@@ -1,6 +1,6 @@
 # Paperless-ngx — VPS 部署
 
-独立 Docker 栈：仅监听 `127.0.0.1:8000`，由 [vps_nginx](https://github.com/xiaolitongxue666/vps_nginx) 反代 **`/paperless/`**。镜像钉 `ghcr.io/paperless-ngx/paperless-ngx:3.1.3`（含 3.1.2 安全修复）。
+独立 Docker 栈：仅监听 `127.0.0.1:8000`，由 [vps_nginx](https://github.com/xiaolitongxue666/vps_nginx) 反代 **`/paperless/`**。仓内钉 `ghcr.io/paperless-ngx/paperless-ngx:3.1.3`；2026-09-24 生产实测是 `paperless-ngx:latest`。不要在磁盘吃紧时 `pull` 把生产拉回 3.1.3。
 
 公网：将 `paperless` 加入 `VPS_NGINX_PUBLIC_EXPOSE`，访问  
 `https://xiaolitongxue.com.cn/paperless/`（与 `/blog/`、`/freshrss/` 同模式，非独立子域名）。
