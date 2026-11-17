@@ -46,6 +46,8 @@ PAPERLESS_OCR_OUTPUT_TYPE=pdf
 
 大文件可丢进 `consume/` 自动入库。内置 PDF 阅读器≈pdf.js，**沉浸式翻译通常无法译正文**；精读双语请用 [Kavita](https://github.com/xiaolitongxue666/Kavita) + **EPUB**（`/kavita/`）。
 
+`consume/` 同时是 zlib 的**归档备用**落点：只有明确要求归档时才用 Cursor MCP `zlib-paperless`（`zlib mcp --allowed-dir <本机 consume> --disable-kindle --disable-weread --disable-history-delete`），文件直接放进 `consume/`，容器按正常流程摄取。可读电子书默认仍下到 Kavita `deploy/vps/books/`。`consume/` 不进 git、不同步 VPS。
+
 ## 约束
 
 - 生产镜像 `ghcr.io/paperless-ngx/paperless-ngx:latest`。OCR 出站走 **17890**。

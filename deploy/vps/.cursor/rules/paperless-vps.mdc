@@ -7,4 +7,6 @@ alwaysApply: true
 
 镜像保持 `paperless-ngx:latest`。可用 &lt; 2.5G 不 pull。勿 `volume rm`。OCR 出站 `:17890`。
 
+`consume/` 只作 zlib 归档备用落点：用户明确要求归档时才用 Cursor MCP `zlib-paperless`，文件放 `consume/`，不 `git add`。可读电子书默认去 Kavita 书库，不放这里。
+
 细节：[README.md](../../README.md)
